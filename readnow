@@ -1,0 +1,68 @@
+var name;
+var goodness;
+var goodnessInt;
+var favoritism;
+var grade;
+
+onEvent("updateScreenButton", "click", function(){
+  updateVariables();
+  if(name=="Patrick Niederhauser"){
+    setScreen("patrickNiederhauserScreen");
+  }else if(name=="Jonah Goldberg"){
+    setProperty("goodnessInput","options",["very good"]);
+    setProperty("likenessDropdown","options",[10]);
+    updateVariables();
+    updateGrade();
+    resetinputs();
+  }else if(name=="Lucas Cummings"){
+    setText("outputText", "You should give Lucas Cummings 2,000,000,000,000%");
+  }else if(name=="Andy Wu"){
+    setProperty("goodnessInput","options",["very bad"]);
+    setProperty("likenessDropdown","options",[1]);
+    updateVariables();
+    updateGrade();
+    resetinputs();
+  }else if(name=="hacker"&&goodness=="good"&&favoritism==20){
+    setScreen("easterEgg");
+  }else{
+    updateGrade();
+    resetinputs();
+  }
+});
+
+onEvent("easterEggButton", "click", function(){
+  open("https://jonahngoldberggmailcom.github.io/HACKER/");
+});
+
+function resetinputs(){
+  setProperty("goodnessInput","options",["very bad", "bad", "ok", "good", "very good"]);
+    setProperty("likenessDropdown","options",[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+}
+
+function updateVariables(){
+  /*updates the variables*/
+  name=getText("nameInput");
+  goodness = getText("goodnessInput");
+  /*makes favoritism 90% of the grade*/
+  favoritism = (getNumber("likenessDropdown")-1)*10;
+  /*makes how good the project is 10% of the grade*/
+  if(goodness=="very bad"){
+    goodnessInt=0;
+  }else if(goodness=="very good"){
+    goodnessInt=10;
+  }else if(goodness=="ok"){
+    goodnessInt=5;
+  }else if(goodness=="bad"){
+    goodnessInt=2.5;
+  }else{
+    goodnessInt=7.5;
+  }
+}
+
+/*gets a grade and updates the screen*/
+function updateGrade(){
+  /*calculates the grade*/
+  grade=Math.round(goodnessInt+favoritism);
+  /*gives an output*/
+  setText("outputText", "You should give "+name+" a "+grade+"%");
+}
