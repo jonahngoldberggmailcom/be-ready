@@ -8,7 +8,7 @@ onEvent("updateScreenButton", "click", function(){
   updateVariables();
   if(name=="Patrick Niederhauser"){
     setScreen("patrickNiederhauserScreen");
-    playSound("man-scream-02.mp3", false);
+    playSound("man-scream-02.mp3", true);
   }else if(name=="Jonah Goldberg"){
     setProperty("goodnessInput","options",["very good"]);
     setProperty("likenessDropdown","options",[10]);
